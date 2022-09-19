@@ -1,0 +1,207 @@
+ERROR - 2022-09-19 10:22:44 --> mysqli_sql_exception: Table 'erp.purchaseexpense' doesn't exist in C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SHOW COLUMNS FR...', 0)
+#1 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SHOW COLUMNS FR...')
+#2 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SHOW COLUMNS FR...')
+#3 C:\laragon\www\erp\app\Helpers\general_helper.php(12): CodeIgniter\Database\BaseConnection->query('SHOW COLUMNS FR...')
+#4 C:\laragon\www\erp\app\Models\PurchaseExpenseModel.php(26): allfields('purchaseexpense')
+#5 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Config\Factories.php(126): App\Models\PurchaseExpenseModel->__construct(NULL)
+#6 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Config\Factories.php(83): CodeIgniter\Config\Factories::__callStatic('models', Array)
+#7 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Common.php(817): CodeIgniter\Config\Factories::models('App\\Models\\Purc...', Array, NULL)
+#8 C:\laragon\www\erp\vendor\codeigniter4\framework\system\RESTful\BaseResource.php(54): model('App\\Models\\Purc...')
+#9 C:\laragon\www\erp\vendor\codeigniter4\framework\system\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\Purc...')
+#10 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#11 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+#12 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\laragon\www\erp\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#14 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#15 {main}
+CRITICAL - 2022-09-19 10:22:44 --> Table 'erp.purchaseexpense' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SHOW COLUMNS FROM purchaseexpense;', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SHOW COLUMNS FROM purchaseexpense;')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SHOW COLUMNS FROM purchaseexpense;')
+ 4 APPPATH\Helpers\general_helper.php(12): CodeIgniter\Database\BaseConnection->query('SHOW COLUMNS FROM purchaseexpense;')
+ 5 APPPATH\Models\PurchaseExpenseModel.php(26): allfields('purchaseexpense')
+ 6 SYSTEMPATH\Config\Factories.php(126): App\Models\PurchaseExpenseModel->__construct(null)
+ 7 SYSTEMPATH\Config\Factories.php(83): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 8 SYSTEMPATH\Common.php(817): CodeIgniter\Config\Factories::models('App\\Models\\PurchaseExpenseModel', [...], null)
+ 9 SYSTEMPATH\RESTful\BaseResource.php(54): model('App\\Models\\PurchaseExpenseModel')
+10 SYSTEMPATH\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\PurchaseExpenseModel')
+11 SYSTEMPATH\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+12 SYSTEMPATH\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+13 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-09-19 10:41:02 --> Deletes are not allowed unless they contain a "where" or "like" clause.
+in SYSTEMPATH\Model.php on line 382.
+ 1 SYSTEMPATH\BaseModel.php(963): CodeIgniter\Model->doDelete('0', false)
+ 2 APPPATH\Controllers\PurchaseExpenseController.php(194): CodeIgniter\BaseModel->delete('0')
+ 3 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\PurchaseExpenseController->delete('0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseExpenseController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-09-19 11:14:43 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`erp`.`purchaseexpensesdetail`, CONSTRAINT `purchaseexpensesdetail_ibfk_2` FOREIGN KEY (`purchaseexpid`) REFERENCES `purchaseexpenses` (`id`) ON UPDATE CASCADE) in C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('UPDATE `purchas...', 0)
+#1 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `purchas...')
+#2 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `purchas...')
+#3 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2079): CodeIgniter\Database\BaseConnection->query('UPDATE `purchas...', Array, false)
+#4 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Model.php(338): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\laragon\www\erp\vendor\codeigniter4\framework\system\BaseModel.php(865): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Model.php(693): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\laragon\www\erp\app\Controllers\PurchaseExpenseDetailController.php(158): CodeIgniter\Model->update(Array, Array)
+#8 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\PurchaseExpenseDetailController->update('PEXPD-000000000...')
+#9 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseExpenseDetailController))
+#10 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\erp\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-09-19 11:14:43 --> Cannot add or update a child row: a foreign key constraint fails (`erp`.`purchaseexpensesdetail`, CONSTRAINT `purchaseexpensesdetail_ibfk_2` FOREIGN KEY (`purchaseexpid`) REFERENCES `purchaseexpenses` (`id`) ON UPDATE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = \'PCH-00000000001\', `purchaseexpid` = \'PEXP-00000000010\', `id` = \'PEXPD-00000000002\', `updated_at` = \'2022-09-19 11:14:43\'
+WHERE `purchaseexpensesdetail`.`id` IN (\'PEXPD-00000000002\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = \'PCH-00000000001\', `purchaseexpid` = \'PEXP-00000000010\', `id` = \'PEXPD-00000000002\', `updated_at` = \'2022-09-19 11:14:43\'
+WHERE `purchaseexpensesdetail`.`id` IN (\'PEXPD-00000000002\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = \'PCH-00000000001\', `purchaseexpid` = \'PEXP-00000000010\', `id` = \'PEXPD-00000000002\', `updated_at` = \'2022-09-19 11:14:43\'
+WHERE `purchaseexpensesdetail`.`id` IN (\'PEXPD-00000000002\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2079): CodeIgniter\Database\BaseConnection->query('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = :purchaseidref:, `purchaseexpid` = :purchaseexpid:, `id` = :id:, `updated_at` = :updated_at:
+WHERE `purchaseexpensesdetail`.`id` IN :purchaseexpensesdetail.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(338): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(865): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(693): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\PurchaseExpenseDetailController.php(158): CodeIgniter\Model->update([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\PurchaseExpenseDetailController->update('PEXPD-00000000002')
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseExpenseDetailController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-09-19 11:14:53 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`erp`.`purchaseexpensesdetail`, CONSTRAINT `purchaseexpensesdetail_ibfk_2` FOREIGN KEY (`purchaseexpid`) REFERENCES `purchaseexpenses` (`id`) ON UPDATE CASCADE) in C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('UPDATE `purchas...', 0)
+#1 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `purchas...')
+#2 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `purchas...')
+#3 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2079): CodeIgniter\Database\BaseConnection->query('UPDATE `purchas...', Array, false)
+#4 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Model.php(338): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\laragon\www\erp\vendor\codeigniter4\framework\system\BaseModel.php(865): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Model.php(693): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\laragon\www\erp\app\Controllers\PurchaseExpenseDetailController.php(158): CodeIgniter\Model->update(Array, Array)
+#8 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\PurchaseExpenseDetailController->update('PEXPD-000000000...')
+#9 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseExpenseDetailController))
+#10 C:\laragon\www\erp\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\erp\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\erp\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-09-19 11:14:53 --> Cannot add or update a child row: a foreign key constraint fails (`erp`.`purchaseexpensesdetail`, CONSTRAINT `purchaseexpensesdetail_ibfk_2` FOREIGN KEY (`purchaseexpid`) REFERENCES `purchaseexpenses` (`id`) ON UPDATE CASCADE)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = \'PCH-00000000001\', `purchaseexpid` = \'PEXP-0000000002\', `id` = \'PEXPD-00000000002\', `updated_at` = \'2022-09-19 11:14:53\'
+WHERE `purchaseexpensesdetail`.`id` IN (\'PEXPD-00000000002\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = \'PCH-00000000001\', `purchaseexpid` = \'PEXP-0000000002\', `id` = \'PEXPD-00000000002\', `updated_at` = \'2022-09-19 11:14:53\'
+WHERE `purchaseexpensesdetail`.`id` IN (\'PEXPD-00000000002\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = \'PCH-00000000001\', `purchaseexpid` = \'PEXP-0000000002\', `id` = \'PEXPD-00000000002\', `updated_at` = \'2022-09-19 11:14:53\'
+WHERE `purchaseexpensesdetail`.`id` IN (\'PEXPD-00000000002\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2079): CodeIgniter\Database\BaseConnection->query('UPDATE `purchaseexpensesdetail` SET `purchaseidref` = :purchaseidref:, `purchaseexpid` = :purchaseexpid:, `id` = :id:, `updated_at` = :updated_at:
+WHERE `purchaseexpensesdetail`.`id` IN :purchaseexpensesdetail.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(338): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(865): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(693): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\PurchaseExpenseDetailController.php(158): CodeIgniter\Model->update([...], [...])
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\PurchaseExpenseDetailController->update('PEXPD-00000000002')
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseExpenseDetailController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-09-19 16:03:02 --> Class 'app\Models\BaseModel' not found
+in APPPATH\Models\TourModel.php on line 7.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(282): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(259): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Models\\TourModel.php')
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(237): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\TourModel')
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\TourModel')
+ 5 [internal function]: spl_autoload_call('App\\Models\\TourModel')
+ 6 SYSTEMPATH\RESTful\BaseResource.php(53): class_exists('App\\Models\\TourModel')
+ 7 SYSTEMPATH\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\TourModel')
+ 8 SYSTEMPATH\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-09-19 16:04:27 --> Class 'app\Models\BaseModel' not found
+in APPPATH\Models\TourModel.php on line 7.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(282): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(259): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Models\\TourModel.php')
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(237): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\TourModel')
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\TourModel')
+ 5 [internal function]: spl_autoload_call('App\\Models\\TourModel')
+ 6 SYSTEMPATH\RESTful\BaseResource.php(53): class_exists('App\\Models\\TourModel')
+ 7 SYSTEMPATH\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\TourModel')
+ 8 SYSTEMPATH\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-09-19 16:05:39 --> Class 'app\Models\BaseModel' not found
+in APPPATH\Models\TourModel.php on line 7.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(282): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(259): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Models\\TourModel.php')
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(237): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\TourModel')
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\TourModel')
+ 5 [internal function]: spl_autoload_call('App\\Models\\TourModel')
+ 6 SYSTEMPATH\RESTful\BaseResource.php(53): class_exists('App\\Models\\TourModel')
+ 7 SYSTEMPATH\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\TourModel')
+ 8 SYSTEMPATH\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-09-19 16:06:05 --> Class 'app\Models\BaseModel' not found
+in APPPATH\Models\TourModel.php on line 7.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(282): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(259): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Models\\TourModel.php')
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(237): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\TourModel')
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\TourModel')
+ 5 [internal function]: spl_autoload_call('App\\Models\\TourModel')
+ 6 SYSTEMPATH\RESTful\BaseResource.php(53): class_exists('App\\Models\\TourModel')
+ 7 SYSTEMPATH\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\TourModel')
+ 8 SYSTEMPATH\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-09-19 16:06:35 --> mysqli_sql_exception: Unknown column 'tour.deletedAt' in 'where clause' in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Model.php(223): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\sisiger\app\Controllers\TourController.php(27): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\TourController->index()
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2022-09-19 16:06:35 --> Unknown column 'tour.deletedAt' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `tour`
+WHERE `tour`.`deletedAt` IS NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `tour`
+WHERE `tour`.`deletedAt` IS NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `tour`
+WHERE `tour`.`deletedAt` IS NULL')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tour`
+WHERE `tour`.`deletedAt` IS NULL', [], false)
+ 5 SYSTEMPATH\Model.php(223): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(584): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\TourController.php(27): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
