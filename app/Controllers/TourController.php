@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\LikeTourModel;
 
 class TourController extends ResourceController
 {
@@ -11,10 +12,13 @@ class TourController extends ResourceController
     protected $format    = 'json';
     protected $validation;
 
+    protected $liketourModel;
+
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
+        $this->liketourModel = new LikeTourModel();
     }
 
     /**
@@ -34,7 +38,7 @@ class TourController extends ResourceController
         return $this->respond($data, 200);
     }
 
-    public function showByState($stateCode)
+    public function tourByState($stateCode)
     {
         $tours = $this->model->where(['stateCode' => $stateCode])->findAll();
         if ($tours) {
@@ -226,5 +230,44 @@ class TourController extends ResourceController
             'data' => [],
         ];
         return $this->respond($msg, 200);
+    }
+
+    public function populerTour()
+    {
+        $tourLike = $this->liketourModel->db->query("SELECT tourCode, count(tourCode) AS jumlah_like FROM like_tour GROUP BY tourCode ORDER BY jumlah_like DESC LIMIT 10");
+        $result = [];
+        if ($tourLike->getNumRows() >= 2) {
+            foreach ($tourLike->getResultArray() as $tour) {
+                $tours = $this->model->find($tour['tourCode']);
+                $tours['like'] = $tour['jumlah_like'];
+                array_push($result, $tours);
+            }
+        } else {
+            $tours = $this->model->findAll(10);
+            foreach ($tours as $tour) {
+                $like = $this->liketourModel->where(["tourCode" => $tour['tourCode']])->countAllResults();
+                $tour['like'] = $like;
+                array_push($result, $tour);
+            }
+        }
+        $data = [
+            'status' => 200,
+            'message' => 'Semua Objek Wisata Populer',
+            'data' => ['tours' => $result],
+        ];
+
+        return $this->respond($data, 200);
+    }
+
+    public function newTour()
+    {
+        $tours = $this->model->findAll(10);
+        $data = [
+            'status' => 200,
+            'message' => 'Objek Wisata Baru',
+            'data' => ['tours' => $tours],
+        ];
+
+        return $this->respond($data, 200);
     }
 }

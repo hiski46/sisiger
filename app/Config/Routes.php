@@ -43,7 +43,9 @@ $routes->get('tes', 'HomeController::getTes');
 $routes->group('api/v1', function ($routes) {
     // $routes->get('purchasedetail/showpurchasedetail/(:segment)', 'PurchaseDetailController::showPurchaseDetail/$1');
     $routes->resource('state', ['controller' => 'StateController']);
-    $routes->get('tourperstate/(:segment)', 'TourController::showByState/$1');
+    $routes->get('tourbystate/(:segment)', 'TourController::tourByState/$1');
+    $routes->get('populertour', 'TourController::populerTour');
+    $routes->get('newtour', 'TourController::newTour');
     $routes->resource('tour', ['controller' => 'TourController']);
 });
 /*
