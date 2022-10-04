@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ArticleModel extends Model
+class PoliceModel extends Model
 {
-    protected $table            = 'article';
-    protected $primaryKey       = 'articleCode';
+    protected $table            = 'police';
+    protected $primaryKey       = 'policeCode';
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;

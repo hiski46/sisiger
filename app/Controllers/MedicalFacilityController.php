@@ -4,21 +4,10 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 
-class ArticleController extends ResourceController
+class MedicalFacilityController extends ResourceController
 {
-
-    protected $modelName = 'App\Models\ArticleModel';
+    protected $modelName = 'App\Models\MedicalFacilityModel';
     protected $format    = 'json';
-    protected $validation;
-
-    protected $liketourModel;
-
-
-    public function __construct()
-    {
-        $this->validation = \Config\Services::validation();
-    }
-
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -26,11 +15,11 @@ class ArticleController extends ResourceController
      */
     public function index()
     {
-        $article = $this->model->findAll();
+        $medicalfacility = $this->model->findAll();
         $data = [
             'status' => 200,
-            'message' => 'Semua Article',
-            'data' => ['article' => $article],
+            'message' => 'Semua medicalfacility',
+            'data' => ['medicalfacility' => $medicalfacility],
         ];
 
         return $this->respond($data, 200);
@@ -43,12 +32,12 @@ class ArticleController extends ResourceController
      */
     public function show($id = null)
     {
-        $article = $this->model->find($id);
-        if ($article) {
+        $medicalfacility = $this->model->where(['stateCode' => $id])->findAll();
+        if ($medicalfacility) {
             $data = [
                 'status' => 200,
-                'message' => 'Data articles by id',
-                'data' => ['articles' => $article],
+                'message' => 'Data medical facility by State',
+                'data' => ['medicalfacilitys' => $medicalfacility],
             ];
         } else {
             $data = [
@@ -109,17 +98,5 @@ class ArticleController extends ResourceController
     public function delete($id = null)
     {
         //
-    }
-
-    public function newArticle()
-    {
-        $article = $this->model->findAll(5);
-        $data = [
-            'status' => 200,
-            'message' => 'Article yang Baru Ditambahkan',
-            'data' => ['article' => $article],
-        ];
-
-        return $this->respond($data, 200);
     }
 }
