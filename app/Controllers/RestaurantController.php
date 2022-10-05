@@ -15,7 +15,7 @@ class RestaurantController extends ResourceController
      */
     public function index()
     {
-        $restaurant = $this->model->findAll();
+        $restaurant = $this->model->select("restaurant.*, COUNT(like_restaurant.`restaurantCode`) AS 'like', COUNT(comment_restaurant.`restaurantCode`) AS 'comment'")->join("like_restaurant", "like_restaurant.`restaurantCode`=restaurant.`restaurantCode`", "left")->join("comment_restaurant", "like_restaurant.`restaurantCode`= comment_restaurant.`restaurantCode`", "left")->groupBy("restaurant.`restaurantCode`")->findAll();
         $data = [
             'status' => 200,
             'message' => 'Semua restaurant',
@@ -32,7 +32,7 @@ class RestaurantController extends ResourceController
      */
     public function show($id = null)
     {
-        $restaurant = $this->model->where(['stateCode' => $id])->findAll();
+        $restaurant = $this->model->select("restaurant.*, COUNT(like_restaurant.`restaurantCode`) AS 'like', COUNT(comment_restaurant.`restaurantCode`) AS 'comment'")->join("like_restaurant", "like_restaurant.`restaurantCode`=restaurant.`restaurantCode`", "left")->join("comment_restaurant", "like_restaurant.`restaurantCode`= comment_restaurant.`restaurantCode`", "left")->groupBy("restaurant.`restaurantCode`")->where(['restaurant.stateCode' => $id])->findAll();
         if ($restaurant) {
             $data = [
                 'status' => 200,

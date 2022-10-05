@@ -15,7 +15,7 @@ class MedicalFacilityController extends ResourceController
      */
     public function index()
     {
-        $medicalfacility = $this->model->findAll();
+        $medicalfacility = $this->model->select("medical_facility.*, COUNT(like_medical_facility.`mfCode`) AS 'like', COUNT(comment_medical_facility.`mfCode`) AS 'comment'")->join("like_medical_facility", "like_medical_facility.`mfCode`=medical_facility.`mfCode`", "left")->join("comment_medical_facility", "like_medical_facility.`mfCode`= comment_medical_facility.`mfCode`", "left")->groupBy("medical_facility.`mfCode`")->findAll();
         $data = [
             'status' => 200,
             'message' => 'Semua medicalfacility',
@@ -32,7 +32,7 @@ class MedicalFacilityController extends ResourceController
      */
     public function show($id = null)
     {
-        $medicalfacility = $this->model->where(['stateCode' => $id])->findAll();
+        $medicalfacility = $this->model->select("medical_facility.*, COUNT(like_medical_facility.`mfCode`) AS 'like', COUNT(comment_medical_facility.`mfCode`) AS 'comment'")->join("like_medical_facility", "like_medical_facility.`mfCode`=medical_facility.`mfCode`", "left")->join("comment_medical_facility", "like_medical_facility.`mfCode`= comment_medical_facility.`mfCode`", "left")->groupBy("medical_facility.`mfCode`")->where(['medical_facility.stateCode' => $id])->findAll();
         if ($medicalfacility) {
             $data = [
                 'status' => 200,

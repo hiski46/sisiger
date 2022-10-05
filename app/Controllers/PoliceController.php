@@ -15,7 +15,7 @@ class PoliceController extends ResourceController
      */
     public function index()
     {
-        $police = $this->model->findAll();
+        $police = $this->model->select("police.*, COUNT(like_police.`policeCode`) AS 'like', COUNT(comment_police.`policeCode`) AS 'comment'")->join("like_police", "like_police.`policeCode`=police.`policeCode`", "left")->join("comment_police", "like_police.`policeCode`= comment_police.`policeCode`", "left")->groupBy("police.`policeCode`")->findAll();
         $data = [
             'status' => 200,
             'message' => 'Semua Kantor Polisi',
@@ -32,7 +32,7 @@ class PoliceController extends ResourceController
      */
     public function show($id = null)
     {
-        $police = $this->model->where(['stateCode' => $id])->findAll();
+        $police = $this->model->select("police.*, COUNT(like_police.`policeCode`) AS 'like', COUNT(comment_police.`policeCode`) AS 'comment'")->join("like_police", "like_police.`policeCode`=police.`policeCode`", "left")->join("comment_police", "like_police.`policeCode`= comment_police.`policeCode`", "left")->groupBy("police.`policeCode`")->where(['police.stateCode' => $id])->findAll();
         if ($police) {
             $data = [
                 'status' => 200,

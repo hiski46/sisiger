@@ -26,7 +26,7 @@ class ArticleController extends ResourceController
      */
     public function index()
     {
-        $article = $this->model->findAll();
+        $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->findAll();
         $data = [
             'status' => 200,
             'message' => 'Semua Article',
@@ -43,7 +43,7 @@ class ArticleController extends ResourceController
      */
     public function show($id = null)
     {
-        $article = $this->model->find($id);
+        $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->where(['article.stateCode' => $id])->findAll();
         if ($article) {
             $data = [
                 'status' => 200,
@@ -111,9 +111,9 @@ class ArticleController extends ResourceController
         //
     }
 
-    public function newArticle()
+    public function newArticle($limit = 0)
     {
-        $article = $this->model->findAll(5);
+        $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->orderBy('article.articleCode', 'DESC')->findAll($limit);
         $data = [
             'status' => 200,
             'message' => 'Article yang Baru Ditambahkan',

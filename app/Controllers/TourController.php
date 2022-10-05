@@ -12,13 +12,11 @@ class TourController extends ResourceController
     protected $format    = 'json';
     protected $validation;
 
-    protected $liketourModel;
 
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
-        $this->liketourModel = new LikeTourModel();
     }
 
     /**
@@ -29,8 +27,8 @@ class TourController extends ResourceController
     public function index()
     {
         // $tours = $this->model->findAll();
-        $tours = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` GROUP BY tour.`tourCode`")->getResultArray();
-
+        // $tours = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` GROUP BY tour.`tourCode`")->getResultArray();
+        $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->findAll();
         $data = [
             'status' => 200,
             'message' => 'Semua Objek Wisata',
@@ -234,24 +232,37 @@ class TourController extends ResourceController
         return $this->respond($msg, 200);
     }
 
-    public function populerTour()
+    public function populerTour($limit = 0)
     {
-        $tourLike = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` GROUP BY tour.`tourCode` ORDER BY COUNT(like_tour.`tourCode`) DESC LIMIT 10")->getResultArray();
+        // $tourLike = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` GROUP BY tour.`tourCode` ORDER BY COUNT(like_tour.`tourCode`) DESC LIMIT 10")->getResultArray();
+        $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->limit($limit)->orderBy("like", "DESC")->findAll($limit);
         $data = [
             'status' => 200,
             'message' => 'Semua Objek Wisata Populer',
-            'data' => ['tours' => $tourLike],
+            'data' => ['tours' => $tours],
         ];
 
         return $this->respond($data, 200);
     }
 
-    public function newTour()
+    public function newTour($limit = 0)
     {
-        $tours = $this->model->findAll(10);
+        $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->limit($limit)->orderBy("tourCode", "DESC")->findAll($limit);
         $data = [
             'status' => 200,
             'message' => 'Objek Wisata Baru',
+            'data' => ['tours' => $tours],
+        ];
+
+        return $this->respond($data, 200);
+    }
+
+    public function recomendedTour($limit = 0)
+    {
+        $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->limit($limit)->orderBy("comment", "DESC")->findAll($limit);
+        $data = [
+            'status' => 200,
+            'message' => 'Objek Wisata yang Disarankan',
             'data' => ['tours' => $tours],
         ];
 

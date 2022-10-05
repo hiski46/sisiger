@@ -47,12 +47,17 @@ $routes->group('api/v1', function ($routes) {
     $routes->resource('restaurant', ['controller' => 'RestaurantController']);
     $routes->resource('police', ['controller' => 'PoliceController']);
     $routes->resource('hotel', ['controller' => 'HotelController']);
+    $routes->get('newarticle/(:any)', 'ArticleController::newArticle/$1');
     $routes->get('newarticle', 'ArticleController::newArticle');
     $routes->resource('article', ['controller' => 'ArticleController']);
     $routes->resource('state', ['controller' => 'StateController']);
     $routes->get('tourbystate/(:segment)', 'TourController::tourByState/$1');
+    $routes->get('populertour/(:any)', 'TourController::populerTour/$1');
     $routes->get('populertour', 'TourController::populerTour');
+    $routes->get('recomendedtour', 'TourController::recomendedTour');
+    $routes->get('recomendedtour/(:any)', 'TourController::recomendedTour/$1');
     $routes->get('newtour', 'TourController::newTour');
+    $routes->get('newtour/(:any)', 'TourController::newTour/$1');
     $routes->resource('tour', ['controller' => 'TourController']);
 });
 /*
