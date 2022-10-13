@@ -27,11 +27,7 @@ class ArticleController extends ResourceController
     public function index()
     {
         $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->findAll();
-        $data = [
-            'status' => 200,
-            'message' => 'Semua Article',
-            'data' => ['article' => $article],
-        ];
+        $data = $article;
 
         return $this->respond($data, 200);
     }
@@ -43,13 +39,9 @@ class ArticleController extends ResourceController
      */
     public function show($id = null)
     {
-        $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->where(['article.stateCode' => $id])->findAll();
+        $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->where(['article.articleCode' => $id])->findAll();
         if ($article) {
-            $data = [
-                'status' => 200,
-                'message' => 'Data articles by id',
-                'data' => ['articles' => $article],
-            ];
+            $data = $article;
         } else {
             $data = [
                 'status' => 404,
@@ -114,11 +106,7 @@ class ArticleController extends ResourceController
     public function newArticle($limit = 0)
     {
         $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->orderBy('article.articleCode', 'DESC')->findAll($limit);
-        $data = [
-            'status' => 200,
-            'message' => 'Article yang Baru Ditambahkan',
-            'data' => ['article' => $article],
-        ];
+        $data = $article;
 
         return $this->respond($data, 200);
     }

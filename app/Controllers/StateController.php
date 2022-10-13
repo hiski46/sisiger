@@ -24,11 +24,7 @@ class StateController extends ResourceController
     public function index()
     {
         $state = $this->model->findAll();
-        $data = [
-            'status' => 200,
-            'message' => 'Semua Kabupaten',
-            'data' => ['state' => $state],
-        ];
+        $data = $state;
 
         return $this->respond($data, 200);
     }
@@ -42,11 +38,7 @@ class StateController extends ResourceController
     {
         $kabupaten = $this->model->find($id);
         if ($kabupaten) {
-            $data = [
-                'status' => 200,
-                'message' => 'Data kabupaten by id',
-                'data' => ['kabupaten' => $kabupaten],
-            ];
+            $data = $kabupaten;
         } else {
             $data = [
                 'status' => 404,

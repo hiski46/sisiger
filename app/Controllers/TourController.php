@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\LikeTourModel;
+use App\Models\TourImageModel;
 
 class TourController extends ResourceController
 {
@@ -11,12 +11,14 @@ class TourController extends ResourceController
     protected $modelName = 'App\Models\TourModel';
     protected $format    = 'json';
     protected $validation;
+    protected $tourImageModel;
 
 
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
+        $this->tourImageModel = new TourImageModel;
     }
 
     /**
@@ -29,24 +31,15 @@ class TourController extends ResourceController
         // $tours = $this->model->findAll();
         // $tours = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` GROUP BY tour.`tourCode`")->getResultArray();
         $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->findAll();
-        $data = [
-            'status' => 200,
-            'message' => 'Semua Objek Wisata',
-            'data' => ['tours' => $tours],
-        ];
-
-        return $this->respond($data, 200);
+        $rest = $this->setThumbTour($tours);
+        return $this->respond($rest, 200);
     }
 
     public function tourByState($stateCode)
     {
-        $tours = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour  LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` WHERE tour.`stateCode` = " . $stateCode . " GROUP BY tour.`tourCode`")->getResultArray();
+        $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->where(["tour.StateCode" => $stateCode])->groupBy("tour.`tourCode`")->findAll();
         if ($tours) {
-            $data = [
-                'status' => 200,
-                'message' => 'Semua Objek Wisata',
-                'data' => ['tours' => $tours],
-            ];
+            $data = $this->setThumbTour($tours);
         } else {
             $data = [
                 'status' => 404,
@@ -66,11 +59,8 @@ class TourController extends ResourceController
     {
         $tour = $this->model->find($id);
         if ($tour) {
-            $data = [
-                'status' => 200,
-                'message' => 'Data tours by id',
-                'data' => ['tours' => $tour],
-            ];
+            $tour['image'] = $this->getThumbImageTour($tour['tourCode']);
+            $data = [$tour];
         } else {
             $data = [
                 'status' => 404,
@@ -236,11 +226,7 @@ class TourController extends ResourceController
     {
         // $tourLike = $this->liketourModel->db->query("SELECT tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment' FROM tour LEFT JOIN like_tour ON like_tour.`tourCode`=tour.`tourCode` LEFT JOIN comment_tour ON like_tour.`tourCode`= comment_tour.`tourCode` GROUP BY tour.`tourCode` ORDER BY COUNT(like_tour.`tourCode`) DESC LIMIT 10")->getResultArray();
         $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->limit($limit)->orderBy("like", "DESC")->findAll($limit);
-        $data = [
-            'status' => 200,
-            'message' => 'Semua Objek Wisata Populer',
-            'data' => ['tours' => $tours],
-        ];
+        $data = $this->setThumbTour($tours);
 
         return $this->respond($data, 200);
     }
@@ -248,24 +234,34 @@ class TourController extends ResourceController
     public function newTour($limit = 0)
     {
         $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->limit($limit)->orderBy("tourCode", "DESC")->findAll($limit);
-        $data = [
-            'status' => 200,
-            'message' => 'Objek Wisata Baru',
-            'data' => ['tours' => $tours],
-        ];
-
+        $data = $this->setThumbTour($tours);
         return $this->respond($data, 200);
     }
 
     public function recomendedTour($limit = 0)
     {
         $tours = $this->model->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->groupBy("tour.`tourCode`")->limit($limit)->orderBy("comment", "DESC")->findAll($limit);
-        $data = [
-            'status' => 200,
-            'message' => 'Objek Wisata yang Disarankan',
-            'data' => ['tours' => $tours],
-        ];
+        $data = $this->setThumbTour($tours);
 
         return $this->respond($data, 200);
+    }
+
+    public function getThumbImageTour($tourCode)
+    {
+        $image = $this->tourImageModel->select('path')->where('tourCode', $tourCode)->where('type', 'thumb')->first();
+        $res = $image ? $image['path'] : null;
+        return $res;
+    }
+
+    public function setThumbTour($tours)
+    {
+        $res = [];
+        foreach ($tours as $tour) {
+            $temp = [];
+            $temp = $tour;
+            $temp['image'] = $this->getThumbImageTour($tour['tourCode']);
+            array_push($res, $temp);
+        }
+        return $res;
     }
 }

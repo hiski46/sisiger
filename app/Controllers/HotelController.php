@@ -16,11 +16,7 @@ class HotelController extends ResourceController
     public function index()
     {
         $hotel = $this->model->select("hotel.*, COUNT(like_hotel.`hotelCode`) AS 'like', COUNT(comment_hotel.`hotelCode`) AS 'comment'")->join("like_hotel", "like_hotel.`hotelCode`=hotel.`hotelCode`", "left")->join("comment_hotel", "like_hotel.`hotelCode`= comment_hotel.`hotelCode`", "left")->groupBy("hotel.`hotelCode`")->findAll();
-        $data = [
-            'status' => 200,
-            'message' => 'Semua Hotel',
-            'data' => ['hotel' => $hotel],
-        ];
+        $data = $hotel;
 
         return $this->respond($data, 200);
     }
@@ -34,11 +30,7 @@ class HotelController extends ResourceController
     {
         $hotel = $this->model->select("hotel.*, COUNT(like_hotel.`hotelCode`) AS 'like', COUNT(comment_hotel.`hotelCode`) AS 'comment'")->join("like_hotel", "like_hotel.`hotelCode`=hotel.`hotelCode`", "left")->join("comment_hotel", "like_hotel.`hotelCode`= comment_hotel.`hotelCode`", "left")->groupBy("hotel.`hotelCode`")->where(['hotel.stateCode' => $id])->findAll();
         if ($hotel) {
-            $data = [
-                'status' => 200,
-                'message' => 'Data Hotel by State',
-                'data' => ['hotels' => $hotel],
-            ];
+            $data = $hotel;
         } else {
             $data = [
                 'status' => 404,

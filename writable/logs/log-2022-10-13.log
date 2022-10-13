@@ -1,0 +1,389 @@
+ERROR - 2022-10-13 20:01:33 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:171
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(171): mysqli->real_connect('localhost', 'root', '', 'siger', 3306, '', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(382): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(588): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\sisiger\app\Helpers\general_helper.php(12): CodeIgniter\Database\BaseConnection->query('SHOW COLUMNS FR...')
+#4 C:\laragon\www\sisiger\app\Models\TourModel.php(28): allfields('tour')
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Config\Factories.php(126): App\Models\TourModel->__construct(NULL)
+#6 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Config\Factories.php(83): CodeIgniter\Config\Factories::__callStatic('models', Array)
+#7 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Common.php(817): CodeIgniter\Config\Factories::models('App\\Models\\Tour...', Array, NULL)
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\RESTful\BaseResource.php(54): model('App\\Models\\Tour...')
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\Tour...')
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#11 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+#12 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#14 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:215
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(382): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(588): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\sisiger\app\Helpers\general_helper.php(12): CodeIgniter\Database\BaseConnection->query('SHOW COLUMNS FR...')
+#3 C:\laragon\www\sisiger\app\Models\TourModel.php(28): allfields('tour')
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Config\Factories.php(126): App\Models\TourModel->__construct(NULL)
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Config\Factories.php(83): CodeIgniter\Config\Factories::__callStatic('models', Array)
+#6 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Common.php(817): CodeIgniter\Config\Factories::models('App\\Models\\Tour...', Array, NULL)
+#7 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\RESTful\BaseResource.php(54): model('App\\Models\\Tour...')
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\Tour...')
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+#11 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#14 {main}
+CRITICAL - 2022-10-13 20:01:33 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 418.
+ 1 SYSTEMPATH\Database\BaseConnection.php(588): CodeIgniter\Database\BaseConnection->initialize()
+ 2 APPPATH\Helpers\general_helper.php(12): CodeIgniter\Database\BaseConnection->query('SHOW COLUMNS FROM tour;')
+ 3 APPPATH\Models\TourModel.php(28): allfields('tour')
+ 4 SYSTEMPATH\Config\Factories.php(126): App\Models\TourModel->__construct(null)
+ 5 SYSTEMPATH\Config\Factories.php(83): CodeIgniter\Config\Factories::__callStatic('models', [...])
+ 6 SYSTEMPATH\Common.php(817): CodeIgniter\Config\Factories::models('App\\Models\\TourModel', [...], null)
+ 7 SYSTEMPATH\RESTful\BaseResource.php(54): model('App\\Models\\TourModel')
+ 8 SYSTEMPATH\RESTful\BaseResource.php(37): CodeIgniter\RESTful\BaseResource->setModel('App\\Models\\TourModel')
+ 9 SYSTEMPATH\CodeIgniter.php(870): CodeIgniter\RESTful\BaseResource->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+10 SYSTEMPATH\CodeIgniter.php(448): CodeIgniter\CodeIgniter->createController()
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:20:07 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\TourController.php on line 38.
+ 1 APPPATH\Controllers\TourController.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'APPPATH\\Controllers\\TourController.php', 38)
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:20:44 --> Attempt to read property "path" on null
+in APPPATH\Controllers\TourController.php on line 38.
+ 1 APPPATH\Controllers\TourController.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "path" on null', 'APPPATH\\Controllers\\TourController.php', 38)
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:21:04 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\TourController.php on line 38.
+ 1 APPPATH\Controllers\TourController.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'APPPATH\\Controllers\\TourController.php', 38)
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:22:09 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\TourController.php on line 38.
+ 1 APPPATH\Controllers\TourController.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'APPPATH\\Controllers\\TourController.php', 38)
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:22:11 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\TourController.php on line 38.
+ 1 APPPATH\Controllers\TourController.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'APPPATH\\Controllers\\TourController.php', 38)
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:22:30 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\TourController.php on line 38.
+ 1 APPPATH\Controllers\TourController.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'APPPATH\\Controllers\\TourController.php', 38)
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-10-13 20:30:23 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3 in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`\nF...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`\nF...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`\nF...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`\nF...', Array, false)
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\BaseModel.php(622): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\sisiger\app\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\sisiger\app\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\TourController->index()
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-10-13 20:30:23 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(622): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-10-13 20:31:07 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':0:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3 in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`\nF...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`\nF...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`\nF...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`\nF...', Array, false)
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\BaseModel.php(622): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\sisiger\app\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\sisiger\app\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\TourController->index()
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-10-13 20:31:07 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':0:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(622): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-10-13 20:31:29 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`type` = '1, \'thumbnail\''
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3 in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`\nF...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`\nF...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`\nF...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`\nF...', Array, false)
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\BaseModel.php(622): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\sisiger\app\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\sisiger\app\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\TourController->index()
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-10-13 20:31:29 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`type` = '1, \'thumbnail\''
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,` `type` = \'1, \\\'thumbnail\\\'\'
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,` `type` = \'1, \\\'thumbnail\\\'\'
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,` `type` = \'1, \\\'thumbnail\\\'\'
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,` `type` = :tourCode, type:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(622): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-10-13 20:36:21 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3 in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`\nF...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`\nF...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`\nF...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`\nF...', Array, false)
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\BaseModel.php(622): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\sisiger\app\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\sisiger\app\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\TourController->index()
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-10-13 20:36:21 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1' at line 3
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`
+FROM `tour_image`
+WHERE 0 = :0:
+AND 1 = :1:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(622): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-10-13 20:36:59 --> mysqli_sql_exception: Unknown column 'tourCode,type' in 'where clause' in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`\nF...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`\nF...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`\nF...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`\nF...', Array, false)
+#4 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\BaseModel.php(622): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\sisiger\app\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\sisiger\app\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+#8 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\TourController->index()
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+#10 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2022-10-13 20:36:59 --> Unknown column 'tourCode,type' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,type` = \'1, \\\'thumb\\\'\'
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,type` = \'1, \\\'thumb\\\'\'
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,type` = \'1, \\\'thumb\\\'\'
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT `path`
+FROM `tour_image`
+WHERE `tourCode,type` = :tourCode,type:
+AND `tour_image`.`deleteAt` IS NULL
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(250): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(622): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Controllers\TourController.php(258): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+10 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:39:22 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\TourController.php on line 259.
+ 1 APPPATH\Controllers\TourController.php(259): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'APPPATH\\Controllers\\TourController.php', 259)
+ 2 APPPATH\Controllers\TourController.php(38): App\Controllers\TourController->getThumbImageTour('1')
+ 3 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:43:50 --> array_push(): Argument #1 ($array) must be of type array, null given
+in APPPATH\Controllers\TourController.php on line 262.
+ 1 APPPATH\Controllers\TourController.php(262): array_push(null, [...])
+ 2 APPPATH\Controllers\TourController.php(34): App\Controllers\TourController->setThumbTour([...])
+ 3 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 20:52:30 --> Cannot access offset of type string on string
+in APPPATH\Controllers\TourController.php on line 261.
+ 1 APPPATH\Controllers\TourController.php(62): App\Controllers\TourController->setThumbTour([...])
+ 2 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\TourController->show('3')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TourController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')

@@ -16,11 +16,7 @@ class PoliceController extends ResourceController
     public function index()
     {
         $police = $this->model->select("police.*, COUNT(like_police.`policeCode`) AS 'like', COUNT(comment_police.`policeCode`) AS 'comment'")->join("like_police", "like_police.`policeCode`=police.`policeCode`", "left")->join("comment_police", "like_police.`policeCode`= comment_police.`policeCode`", "left")->groupBy("police.`policeCode`")->findAll();
-        $data = [
-            'status' => 200,
-            'message' => 'Semua Kantor Polisi',
-            'data' => ['police' => $police],
-        ];
+        $data = $police;
 
         return $this->respond($data, 200);
     }
@@ -34,11 +30,7 @@ class PoliceController extends ResourceController
     {
         $police = $this->model->select("police.*, COUNT(like_police.`policeCode`) AS 'like', COUNT(comment_police.`policeCode`) AS 'comment'")->join("like_police", "like_police.`policeCode`=police.`policeCode`", "left")->join("comment_police", "like_police.`policeCode`= comment_police.`policeCode`", "left")->groupBy("police.`policeCode`")->where(['police.stateCode' => $id])->findAll();
         if ($police) {
-            $data = [
-                'status' => 200,
-                'message' => 'Data Kantor Polisi by State',
-                'data' => ['polices' => $police],
-            ];
+            $data = $police;
         } else {
             $data = [
                 'status' => 404,

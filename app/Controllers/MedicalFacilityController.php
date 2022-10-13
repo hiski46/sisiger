@@ -16,11 +16,7 @@ class MedicalFacilityController extends ResourceController
     public function index()
     {
         $medicalfacility = $this->model->select("medical_facility.*, COUNT(like_medical_facility.`mfCode`) AS 'like', COUNT(comment_medical_facility.`mfCode`) AS 'comment'")->join("like_medical_facility", "like_medical_facility.`mfCode`=medical_facility.`mfCode`", "left")->join("comment_medical_facility", "like_medical_facility.`mfCode`= comment_medical_facility.`mfCode`", "left")->groupBy("medical_facility.`mfCode`")->findAll();
-        $data = [
-            'status' => 200,
-            'message' => 'Semua medicalfacility',
-            'data' => ['medicalfacility' => $medicalfacility],
-        ];
+        $data = $medicalfacility;
 
         return $this->respond($data, 200);
     }
