@@ -43,6 +43,11 @@ $routes->get('tes', 'HomeController::getTes');
 $routes->group('api/v1', function ($routes) {
     // $routes->get('purchasedetail/showpurchasedetail/(:segment)', 'PurchaseDetailController::showPurchaseDetail/$1');
 
+    $routes->delete('unarchivetour/(:any)/(:any)', 'ArchiveTourController::deleteArchiveTour/$1/$2');
+    $routes->get('allarchivetourbyuser/(:any)', 'ArchiveTourController::allArchiveTourByUser/$1');
+    $routes->resource('archivetour', ['controller' => 'ArchiveTourController']);
+    $routes->resource('commenttour', ['controller' => 'CommentTourController']);
+    $routes->resource('user', ['controller' => 'UserController']);
     $routes->resource('medicalfacility', ['controller' => 'MedicalFacilityController']);
     $routes->resource('restaurant', ['controller' => 'RestaurantController']);
     $routes->resource('police', ['controller' => 'PoliceController']);
@@ -51,6 +56,9 @@ $routes->group('api/v1', function ($routes) {
     $routes->get('newarticle', 'ArticleController::newArticle');
     $routes->resource('article', ['controller' => 'ArticleController']);
     $routes->resource('state', ['controller' => 'StateController']);
+    $routes->get('disliketour/(:segment)/(:segment)', 'LikeController::dislikeTour/$1/$2');
+    $routes->get('liketour/(:segment)/(:segment)', 'LikeController::likeTour/$1/$2');
+    $routes->get('allimagetour/(:segment)', 'TourController::allImageTour/$1');
     $routes->get('tourbystate/(:segment)', 'TourController::tourByState/$1');
     $routes->get('populertour/(:any)', 'TourController::populerTour/$1');
     $routes->get('populertour', 'TourController::populerTour');

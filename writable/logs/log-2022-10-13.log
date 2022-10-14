@@ -387,3 +387,35 @@ in APPPATH\Controllers\TourController.php on line 261.
  4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  5 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+CRITICAL - 2022-10-13 22:32:40 --> Call to a member function save() on null
+in APPPATH\Controllers\UserController.php on line 77.
+ 1 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\UserController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
+ERROR - 2022-10-13 23:10:05 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`siger`.`like_tour`, CONSTRAINT `like_tour_ibfk_1` FOREIGN KEY (`userCode`) REFERENCES `user` (`userCode`)) in C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:292
+Stack trace:
+#0 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `li...', 0)
+#1 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `li...')
+#2 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `li...')
+#3 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1916): CodeIgniter\Database\BaseConnection->query('INSERT INTO `li...', Array, false)
+#4 C:\laragon\www\sisiger\app\Controllers\LikeController.php(89): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\LikeController->likeTour('1', '10')
+#6 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LikeController))
+#7 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\sisiger\public\index.php(73): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\sisiger\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(43): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2022-10-13 23:10:05 --> Cannot add or update a child row: a foreign key constraint fails (`siger`.`like_tour`, CONSTRAINT `like_tour_ibfk_1` FOREIGN KEY (`userCode`) REFERENCES `user` (`userCode`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('INSERT INTO `like_tour` (`userCode`, `tourCode`) VALUES (\'10\', \'1\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `like_tour` (`userCode`, `tourCode`) VALUES (\'10\', \'1\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `like_tour` (`userCode`, `tourCode`) VALUES (\'10\', \'1\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1916): CodeIgniter\Database\BaseConnection->query('INSERT INTO `like_tour` (`userCode`, `tourCode`) VALUES (:userCode:, :tourCode:)', [...], false)
+ 5 APPPATH\Controllers\LikeController.php(89): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\LikeController->likeTour('1', '10')
+ 7 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LikeController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(73): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(43): require_once('FCPATH\\index.php')
