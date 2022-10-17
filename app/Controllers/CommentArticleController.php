@@ -5,9 +5,9 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\Model;
 
-class CommentTourController extends ResourceController
+class CommentArticleController extends ResourceController
 {
-    protected $modelName = 'App\Models\CommentTourModel';
+    protected $modelName = 'App\Models\CommentArticleModel';
     protected $format    = 'json';
     protected $Model;
 
@@ -33,7 +33,10 @@ class CommentTourController extends ResourceController
      */
     public function show($id = null)
     {
-        $comment = $this->model->select("comment_tour.*, user.name, user.image")->join("user", "user.userCode=comment_tour.userCode")->where(['comment_tour.tourCode' => $id])->orderBy("ctCode", "DESC")->findAll();
+        $comment = $this->model->select("comment_article.*, user.name, user.image")
+            ->join("user", "user.userCode=comment_article.userCode")
+            ->where(['comment_article.articleCode' => $id])
+            ->orderBy("caCode", "DESC")->findAll();
         return $this->respond($comment, 200);
     }
 
@@ -67,16 +70,16 @@ class CommentTourController extends ResourceController
                     'required' => 'User tidak ditemukan'
                 ],
             ],
-            'tourCode' => [
+            'articleCode' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Objek wisata tidak ditemukan'
+                    'required' => 'Article tidak ditemukan'
                 ],
             ],
         ]);
         if ($validasi) {
             $data =  (array) $this->request->getVar();
-            $data['userCode']=$this->getUserCode($data['userCode']);
+            $data['userCode'] = $this->getUserCode($data['userCode']);
             if ($this->model->save($data)) {
                 $msg = [
                     'status' => 200,
@@ -99,7 +102,7 @@ class CommentTourController extends ResourceController
                 'data' => [
                     'comment' => $this->validation->getError('comment'),
                     'userCode' => $this->validation->getError('userCode'),
-                    'tourCode' => $this->validation->getError('tourCode'),
+                    'articleCode' => $this->validation->getError('articleCode'),
                 ],
             ];
             return $this->respond($msg, 500);
@@ -135,9 +138,10 @@ class CommentTourController extends ResourceController
     {
         //
     }
-    
-    public function getUserCode($uid){
-        $userCode = $this->Model->db->table('user')->select('userCode')->where('uid',$uid)->get()->getResultArray()[0]['userCode'];
+
+    public function getUserCode($uid)
+    {
+        $userCode = $this->Model->db->table('user')->select('userCode')->where('uid', $uid)->get()->getResultArray()[0]['userCode'];
         return $userCode;
     }
 }

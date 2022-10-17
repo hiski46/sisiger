@@ -30,11 +30,7 @@ class MedicalFacilityController extends ResourceController
     {
         $medicalfacility = $this->model->select("medical_facility.*, COUNT(like_medical_facility.`mfCode`) AS 'like', COUNT(comment_medical_facility.`mfCode`) AS 'comment'")->join("like_medical_facility", "like_medical_facility.`mfCode`=medical_facility.`mfCode`", "left")->join("comment_medical_facility", "like_medical_facility.`mfCode`= comment_medical_facility.`mfCode`", "left")->groupBy("medical_facility.`mfCode`")->where(['medical_facility.stateCode' => $id])->findAll();
         if ($medicalfacility) {
-            $data = [
-                'status' => 200,
-                'message' => 'Data medical facility by State',
-                'data' => ['medicalfacilitys' => $medicalfacility],
-            ];
+            $data = $medicalfacility;
         } else {
             $data = [
                 'status' => 404,

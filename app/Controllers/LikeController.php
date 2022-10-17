@@ -83,8 +83,9 @@ class LikeController extends ResourceController
         //
     }
 
-    public function likeTour($tourCode, $userCode)
+    public function likeTour($tourCode, $uid)
     {
+        $userCode = $this->getUserCode($uid);
         $data = ['userCode' => $userCode, 'tourCode' => $tourCode];
         if ($this->Model->db->table('like_tour')->insert($data)) {
             $msg = [
@@ -101,9 +102,9 @@ class LikeController extends ResourceController
         }
     }
 
-    public function dislikeTour($tourCode, $userCode)
+    public function dislikeTour($tourCode, $uid)
     {
-
+        $userCode = $this->getUserCode($uid);
         if ($this->Model->db->table('like_tour')->delete(['tourCode' => $tourCode, 'userCode' => $userCode])) {
             $msg = [
                 'status' => 200,
@@ -117,5 +118,68 @@ class LikeController extends ResourceController
             ];
             return $this->respond($msg, 500);
         }
+    }
+    
+    public function isLikeTour($tourCode, $uid){
+        $userCode = $this->getUserCode($uid);
+        $isLike = $this->Model->db->table('like_tour')->where(['userCode'=>$userCode, 'tourCode'=>$tourCode])->get()->getNumRows();
+        return $this->respond($isLike,200);
+    }
+    public function isArchiveTour($tourCode, $uid){
+        $userCode = $this->getUserCode($uid);
+        $isArchive = $this->Model->db->table('archive_tour')->where(['userCode'=>$userCode, 'tourCode'=>$tourCode])->get()->getNumRows();
+        return $this->respond($isArchive,200);
+    }
+    
+    public function likeArticle($articleCode, $uid){
+        $userCode = $this->getUserCode($uid);
+        $data = ['userCode' => $userCode, 'articleCode' => $articleCode];
+        if ($this->Model->db->table('like_article')->insert($data)) {
+            $msg = [
+                'status' => 200,
+                'message' => 'Article Berhasil di Like',
+            ];
+            return $this->respond($msg, 200);
+        } else {
+            $msg = [
+                'status' => 500,
+                'message' => 'Article gagal di Like',
+            ];
+            return $this->respond($msg, 500);
+        }
+    }
+    public function dislikeArticle($articleCode, $uid)
+    {
+        $userCode = $this->getUserCode($uid);
+        if ($this->Model->db->table('like_article')->delete(['articleCode' => $articleCode, 'userCode' => $userCode])) {
+            $msg = [
+                'status' => 200,
+                'message' => 'Article Berhasil di disLike',
+            ];
+            return $this->respond($msg, 200);
+        } else {
+            $msg = [
+                'status' => 500,
+                'message' => 'Article gagal di disLike',
+            ];
+            return $this->respond($msg, 500);
+        }
+    }
+    
+    public function isLikeArticle($articleCode, $uid){
+        $userCode = $this->getUserCode($uid);
+        $isLike = $this->Model->db->table('like_article')->where(['userCode'=>$userCode, 'articleCode'=>$articleCode])->get()->getNumRows();
+        return $this->respond($isLike,200);
+    }
+    
+    public function isArchiveArticle($articleCode, $uid){
+        $userCode = $this->getUserCode($uid);
+        $isArchive = $this->Model->db->table('archive_article')->where(['userCode'=>$userCode, 'articleCode'=>$articleCode])->get()->getNumRows();
+        return $this->respond($isArchive,200);
+    }
+    
+    public function getUserCode($uid){
+        $userCode = $this->Model->db->table('user')->select('userCode')->where('uid',$uid)->get()->getResultArray()[0]['userCode'];
+        return $userCode;
     }
 }

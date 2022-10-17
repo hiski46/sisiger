@@ -8,9 +8,9 @@ use CodeIgniter\Model;
 
 
 
-class ArchiveTourController extends ResourceController
+class ArchiveArticleController extends ResourceController
 {
-    protected $modelName = 'App\Models\ArchiveTourModel';
+    protected $modelName = 'App\Models\ArchiveArticleModel';
     protected $format    = 'json';
     protected $tourImageModel;
     protected $Model;
@@ -65,7 +65,7 @@ class ArchiveTourController extends ResourceController
                     'required' => 'User tidak ditemukan'
                 ],
             ],
-            'tourCode' => [
+            'articleCode' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Objek wisata tidak ditemukan'
@@ -74,11 +74,11 @@ class ArchiveTourController extends ResourceController
         ]);
         if ($validasi) {
             $data =  (array) $this->request->getVar();
-            $data['userCode']=$this->getUserCode($data['userCode']);
+            $data['userCode'] = $this->getUserCode($data['userCode']);
             if ($this->model->save($data)) {
                 $msg = [
                     'status' => 200,
-                    'message' => 'Tour berhasil diarchive',
+                    'message' => 'Article berhasil diarchive',
                     'data' => $data,
                 ];
                 return $this->respond($msg, 200);
@@ -96,7 +96,7 @@ class ArchiveTourController extends ResourceController
                 'message' => 'Validasi error',
                 'data' => [
                     'userCode' => $this->validation->getError('userCode'),
-                    'tourCode' => $this->validation->getError('tourCode'),
+                    'articleCode' => $this->validation->getError('articleCode'),
                 ],
             ];
             return $this->respond($msg, 500);
@@ -132,93 +132,78 @@ class ArchiveTourController extends ResourceController
     {
         //
     }
-    
-    public function archiveTourbyUser($tourCode, $uid)
+
+    public function archiveArticlebyUser($articleCode, $uid)
     {
         $userCode = $this->getUserCode($uid);
-        $data = ['userCode' => $userCode, 'tourCode' => $tourCode];
-        if ($this->Model->db->table('archive_tour')->insert($data)) {
+        $data = ['userCode' => $userCode, 'articleCode' => $articleCode];
+        if ($this->Model->db->table('archive_article')->insert($data)) {
             $msg = [
                 'status' => 200,
-                'message' => 'Tour Berhasil di Archive',
+                'message' => 'Articler Berhasil di Archive',
             ];
             return $this->respond($msg, 200);
         } else {
             $msg = [
                 'status' => 500,
-                'message' => 'Tour gagal di Archive',
+                'message' => 'Article gagal di Archive',
             ];
             return $this->respond($msg, 500);
         }
     }
 
-    public function allArchiveTourByUser($uid)
+    public function allArchiveArticleByUser($uid)
     {
-        $userCode=$this->getUserCode($uid);
+        $userCode = $this->getUserCode($uid);
         // $tour = $this->model->where(["archive_tour.userCode" => $userCode])->findAll();
-        $tour = $this->Model->db->table('archive_tour')->select("tour.*, COUNT(like_tour.`tourCode`) AS 'like', COUNT(comment_tour.`tourCode`) AS 'comment'")->join('tour','tour.tourCode=archive_tour.tourCode')->join("like_tour", "like_tour.`tourCode`=tour.`tourCode`", "left")->join("comment_tour", "like_tour.`tourCode`= comment_tour.`tourCode`", "left")->where('archive_tour.userCode', $userCode)->groupBy("tour.`tourCode`")->get()->getResultArray();
-        if ($tour) {
-            $data = $this->setThumbTour($tour);
+        $article = $this->Model->db->table('archive_article')->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join('article', 'article.articleCode=archive_article.articleCode')->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->where('archive_article.userCode', $userCode)->groupBy("article.`articleCode`")->get()->getResultArray();
+        if ($article) {
+            $data = $this->setThumbTour($article);
         } else {
             $data = [
                 'status' => 404,
                 'message' => 'Tidak ada objek wisata yang di archive',
-                'data' => ['tour' => $tour],
+                'data' => ['article' => $article],
             ];
         }
         return $this->respond($data, 200);
     }
-    public function getThumbImageTour($tourCode)
-    {
-        $image = $this->tourImageModel->select('path')->where('tourCode', $tourCode)->where('type', 'thumb')->first();
-        $res = $image ? $image['path'] : null;
-        return $res;
-    }
+
     public function setThumbTour($tours)
     {
         $res = [];
         foreach ($tours as $tour) {
             $temp = [];
             $temp = $tour;
-            $temp['image'] = $this->getThumbImageTour($tour['tourCode']);
-            $temp['like'] = $this->countTourLike($tour['tourCode']);
-            $temp['comment'] = $this->countTourComment($tour['tourCode']);
+            $temp['like'] = $this->countTourLike($tour['articleCode']);
+            $temp['comment'] = $this->countTourComment($tour['articleCode']);
             array_push($res, $temp);
         }
         return $res;
     }
 
-    public function allImageTour($tourCode)
-    {
-        $image = $this->tourImageModel->select('path')->where('tourCode', $tourCode)->findAll();
-        $res = [];
-        foreach ($image as $i) {
-            array_push($res, $i['path']);
-        }
-        return $this->respond($res, 200);
-    }
 
     public function countTourLike($tourCode)
     {
         $count = 0;
-        $count = $this->Model->db->table('like_tour')->where('tourCode', $tourCode)->countAllResults();
+        $count = $this->Model->db->table('like_article')->where('articleCode', $tourCode)->countAllResults();
         return $count;
     }
     public function countTourComment($tourCode)
     {
         $count = 0;
-        $count = $this->Model->db->table('comment_tour')->where('tourCode', $tourCode)->countAllResults();
+        $count = $this->Model->db->table('comment_article')->where('articleCode', $tourCode)->countAllResults();
         return $count;
     }
 
-    public function deleteArchiveTour($tourCode,$uid)
+    public function deleteArchiveArticle($articleCode, $uid)
     {
-        $userCode=$this->getUserCode($uid);
-        $this->model->where(["userCode" => $userCode, "tourCode" => $tourCode])->delete();
+        $userCode = $this->getUserCode($uid);
+        $this->model->where(["userCode" => $userCode, "articleCode" => $articleCode])->delete();
         if ($this->model->db->affectedRows() === 0) {
             $msg = [
                 'status' => 404,
-                'message' => 'Objek Wisata tidak ditemukan atau sudah dihapus',
+                'message' => 'Article tidak ditemukan atau sudah dihapus',
                 'data' => [],
             ];
             return $this->respond($msg, 404);
@@ -230,9 +215,10 @@ class ArchiveTourController extends ResourceController
         ];
         return $this->respond($msg, 200);
     }
-    
-    public function getUserCode($uid){
-        $userCode = $this->Model->db->table('user')->select('userCode')->where('uid',$uid)->get()->getResultArray()[0]['userCode'];
+
+    public function getUserCode($uid)
+    {
+        $userCode = $this->Model->db->table('user')->select('userCode')->where('uid', $uid)->get()->getResultArray()[0]['userCode'];
         return $userCode;
     }
 }

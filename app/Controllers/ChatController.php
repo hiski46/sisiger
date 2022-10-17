@@ -5,9 +5,9 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\Model;
 
-class CommentTourController extends ResourceController
+class ChatController extends ResourceController
 {
-    protected $modelName = 'App\Models\CommentTourModel';
+    protected $modelName = 'App\Models\ChatModel';
     protected $format    = 'json';
     protected $Model;
 
@@ -31,11 +31,33 @@ class CommentTourController extends ResourceController
      *
      * @return mixed
      */
-    public function show($id = null)
+    public function show($uid = null)
     {
-        $comment = $this->model->select("comment_tour.*, user.name, user.image")->join("user", "user.userCode=comment_tour.userCode")->where(['comment_tour.tourCode' => $id])->orderBy("ctCode", "DESC")->findAll();
-        return $this->respond($comment, 200);
+        $userCode=$this->getUserCode($uid);
+        // $chat = $this->model->select("chat.*, a.name as 'from_name', b.name as 'to_name'")->join("user a", "a.userCode=chat.'from'","left")->join("user b", "b.userCode=chat.to", "left")->where(['chat.from' => $uid])->orwhere(['chat."to"' => $uid])->findAll();
+        $chat = $this->model->where(['from' => $userCode])->orwhere(['to' => $userCode])->findAll();
+        // var_dump($chat);
+        // die;
+        $res = $this->setUid($chat);
+        if($res){
+            return $this->respond($res, 200);
+        }else{
+            return $this->respond(["msg"=>"kosong"], 404);
+        }
     }
+    
+    public function setUid($chats){
+        $res=[];
+        foreach($chats as $chat){   
+            $temp=[];
+            $temp = $chat;
+            $temp['from']=$this->getUid($chat['from']);
+            $temp['to']=$this->getUid($chat['to']);
+            array_push($res, $temp);
+        }
+        return $res;
+    }
+    
 
     /**
      * Return a new resource object, with default properties
@@ -55,28 +77,29 @@ class CommentTourController extends ResourceController
     public function create()
     {
         $validasi = $this->validate([
-            'comment' => [
+            'from' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Comment Harus di isi'
+                    'required' => 'from Harus di isi'
                 ],
             ],
-            'userCode' => [
+            'to' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'User tidak ditemukan'
+                    'required' => 'to tidak ditemukan'
                 ],
             ],
-            'tourCode' => [
+            'chat' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Objek wisata tidak ditemukan'
+                    'required' => 'Chat Tidak boleh kosong'
                 ],
             ],
         ]);
         if ($validasi) {
             $data =  (array) $this->request->getVar();
-            $data['userCode']=$this->getUserCode($data['userCode']);
+            $data['from']=$this->getUserCode($data['from']);
+            $data['to']=$this->getUserCode($data['to']);
             if ($this->model->save($data)) {
                 $msg = [
                     'status' => 200,
@@ -97,9 +120,9 @@ class CommentTourController extends ResourceController
                 'status' => 500,
                 'message' => 'Validasi error',
                 'data' => [
-                    'comment' => $this->validation->getError('comment'),
-                    'userCode' => $this->validation->getError('userCode'),
-                    'tourCode' => $this->validation->getError('tourCode'),
+                    'from' => $this->validation->getError('from'),
+                    'to' => $this->validation->getError('to'),
+                    'chat' => $this->validation->getError('chat'),
                 ],
             ];
             return $this->respond($msg, 500);
@@ -139,5 +162,9 @@ class CommentTourController extends ResourceController
     public function getUserCode($uid){
         $userCode = $this->Model->db->table('user')->select('userCode')->where('uid',$uid)->get()->getResultArray()[0]['userCode'];
         return $userCode;
+    }
+    public function getUid($userCode){
+        $uid = $this->Model->db->table('user')->select('uid')->where('userCode',$userCode)->get()->getResultArray()[0]['uid'];
+        return $uid;
     }
 }

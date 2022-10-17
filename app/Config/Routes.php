@@ -23,6 +23,7 @@ $routes->setDefaultController('HomeController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
+$routes->setAutoRoute(false);
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
@@ -41,9 +42,21 @@ $routes->get('/', 'HomeController::index');
 $routes->get('tes', 'HomeController::getTes');
 
 $routes->group('api/v1', function ($routes) {
-    // $routes->get('purchasedetail/showpurchasedetail/(:segment)', 'PurchaseDetailController::showPurchaseDetail/$1');
+    
+    $routes->resource('commentarticle', ['controller' => 'CommentArticleController']);
+    $routes->delete('unarchiveArticle/(:any)/(:any)', 'ArchiveArticleController::deleteArchiveArticle/$1/$2');
+    $routes->get('allarchivearticlewithdetail/(:any)', 'ArchiveArticleController::allArchiveArticleByUser/$1');
+    $routes->resource('archivearticle', ['controller' => 'ArchiveArticleController']);
+    $routes->get('isarchivearticle/(:segment)/(:segment)', 'LikeController::isArchiveArticle/$1/$2');
+    $routes->get('islikearticle/(:segment)/(:segment)', 'LikeController::isLikeArticle/$1/$2');
+    $routes->get('dislikearticle/(:segment)/(:segment)', 'LikeController::dislikeArticle/$1/$2');
+    $routes->get('likearticle/(:segment)/(:segment)', 'LikeController::likeArticle/$1/$2');
 
-    $routes->delete('unarchivetour/(:any)/(:any)', 'ArchiveTourController::deleteArchiveTour/$1/$2');
+    // $routes->get('purchasedetail/showpurchasedetail/(:segment)', 'PurchaseDetailController::showPurchaseDetail/$1');
+    $routes->resource('chat', ['controller' => 'ChatController']);
+    $routes->get('archive_tour/(:segment)/(:segment)', 'ArchiveTourController::archiveTourbyUser/$1/$2');
+    $routes->get('isarchivetour/(:segment)/(:segment)', 'LikeController::isArchiveTour/$1/$2');
+    $routes->get('unarchivetour/(:any)/(:any)', 'ArchiveTourController::deleteArchiveTour/$1/$2');
     $routes->get('allarchivetourbyuser/(:any)', 'ArchiveTourController::allArchiveTourByUser/$1');
     $routes->resource('archivetour', ['controller' => 'ArchiveTourController']);
     $routes->resource('commenttour', ['controller' => 'CommentTourController']);
@@ -56,6 +69,7 @@ $routes->group('api/v1', function ($routes) {
     $routes->get('newarticle', 'ArticleController::newArticle');
     $routes->resource('article', ['controller' => 'ArticleController']);
     $routes->resource('state', ['controller' => 'StateController']);
+    $routes->get('isliketour/(:segment)/(:segment)', 'LikeController::isLikeTour/$1/$2');
     $routes->get('disliketour/(:segment)/(:segment)', 'LikeController::dislikeTour/$1/$2');
     $routes->get('liketour/(:segment)/(:segment)', 'LikeController::likeTour/$1/$2');
     $routes->get('allimagetour/(:segment)', 'TourController::allImageTour/$1');

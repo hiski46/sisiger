@@ -31,7 +31,8 @@ class UserController extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        $user = $this->model->where(['uid' => $id])->findAll()[0];
+        return $this->respond($user, 200);
     }
 
     /**
@@ -53,7 +54,7 @@ class UserController extends ResourceController
     {
         $validasi = $this->validate([
             'uid' => [
-                'rules' => 'required',
+                'rules' => 'required|is_unique[user.uid]',
                 'errors' => [
                     'required' => 'uid kosong'
                 ],
@@ -110,7 +111,43 @@ class UserController extends ResourceController
      */
     public function edit($id = null)
     {
-        //
+        $validasi = $this->validate([
+            'name' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama User Harus di isi'
+                ],
+            ],
+        ]);
+        if ($validasi) {
+            $data = (array) $this->request->getVar();
+            $this->model->update(['tourCode' => $id], $data);
+            if ($this->model->db->affectedRows() !== 0) {
+                $msg = [
+                    'status' => 200,
+                    'message' => 'User berhasil diubah',
+                    'data' => $data,
+                ];
+                return $this->respond($msg, 200);
+            } else {
+                $msg = [
+                    'status' => 500,
+                    'message' => 'User gagal diubah',
+                    'data' => [],
+                ];
+                return $this->respond($msg, 500);
+            }
+        } else {
+            $msg = [
+                'status' => 500,
+                'message' => 'Validasi error',
+                'data' => [
+                    'name' => $this->validation->getError('name'),
+                    'stateCode' => $this->validation->getError('stateCode'),
+                ],
+            ];
+            return $this->respond($msg, 500);
+        }
     }
 
     /**
