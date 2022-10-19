@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\Model;
 
 class ArticleController extends ResourceController
 {
@@ -12,11 +13,13 @@ class ArticleController extends ResourceController
     protected $validation;
 
     protected $liketourModel;
+    protected $Model;
 
 
     public function __construct()
     {
         $this->validation = \Config\Services::validation();
+        $this->Model = new Model();
     }
 
     /**
@@ -26,10 +29,38 @@ class ArticleController extends ResourceController
      */
     public function index()
     {
-        $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->findAll();
-        $data = $article;
+        // $article = $this->model->select("article.*, COUNT(like_article.`articleCode`) AS 'like', COUNT(comment_article.`articleCode`) AS 'comment'")->join("like_article", "like_article.`articleCode`=article.`articleCode`", "left")->join("comment_article", "like_article.`articleCode`= comment_article.`articleCode`", "left")->groupBy("article.`articleCode`")->findAll();
+        $article = $this->model->findAll();
+        $rest = $this->setThumbTour($article);
+        return $this->respond($rest, 200);
 
         return $this->respond($data, 200);
+    }
+    
+    public function setThumbTour($tours)
+    {
+        $res = [];
+        foreach ($tours as $tour) {
+            $temp = [];
+            $temp = $tour;
+            $temp['like'] = $this->countTourLike($tour['articleCode']);
+            $temp['comment'] = $this->countTourComment($tour['articleCode']);
+            array_push($res, $temp);
+        }
+        return $res;
+    }
+    
+    public function countTourLike($tourCode)
+    {
+        $count = 0;
+        $count = $this->Model->db->table('like_article')->where('articleCode', $tourCode)->countAllResults();
+        return $count;
+    }
+    public function countTourComment($tourCode)
+    {
+        $count = 0;
+        $count = $this->Model->db->table('comment_article')->where('articleCode', $tourCode)->countAllResults();
+        return $count;
     }
 
     /**

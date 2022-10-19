@@ -111,6 +111,16 @@ class UserController extends ResourceController
      */
     public function edit($id = null)
     {
+        
+    }
+
+    /**
+     * Add or update a model resource, from "posted" properties
+     *
+     * @return mixed
+     */
+    public function update($id = null)
+    {
         $validasi = $this->validate([
             'name' => [
                 'rules' => 'required',
@@ -121,7 +131,8 @@ class UserController extends ResourceController
         ]);
         if ($validasi) {
             $data = (array) $this->request->getVar();
-            $this->model->update(['tourCode' => $id], $data);
+            $userCode = $this->getUserCode($id);
+            $this->model->update(['userCode' => $userCode], $data);
             if ($this->model->db->affectedRows() !== 0) {
                 $msg = [
                     'status' => 200,
@@ -143,21 +154,10 @@ class UserController extends ResourceController
                 'message' => 'Validasi error',
                 'data' => [
                     'name' => $this->validation->getError('name'),
-                    'stateCode' => $this->validation->getError('stateCode'),
                 ],
             ];
             return $this->respond($msg, 500);
         }
-    }
-
-    /**
-     * Add or update a model resource, from "posted" properties
-     *
-     * @return mixed
-     */
-    public function update($id = null)
-    {
-        //
     }
 
     /**
@@ -168,5 +168,9 @@ class UserController extends ResourceController
     public function delete($id = null)
     {
         //
+    }
+    public function getUserCode($uid){
+        $userCode = $this->model->db->table('user')->select('userCode')->where('uid',$uid)->get()->getResultArray()[0]['userCode'];
+        return $userCode;
     }
 }

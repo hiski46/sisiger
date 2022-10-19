@@ -62,8 +62,8 @@ class TourController extends ResourceController
     {
         $tour = $this->model->find($id);
         if ($tour) {
-            $tour['image'] = $this->getThumbImageTour($tour['tourCode']);
             $data = [$tour];
+            $data = $this->setThumbTour($data);
         } else {
             $data = [
                 'status' => 404,
